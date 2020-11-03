@@ -17,11 +17,9 @@ from atlas_s3_hook.S3PathType import S3PathType
 
 
 class S3MetadataClient:
-    def __init__(self, s3_end_point: str, s3_access_key: str, s3_secret_key: str, s3_token: str):
+    def __init__(self, s3_end_point: str, fs: S3FileSystem ):
         self.s3_end_point = s3_end_point
-        self.fs = s3fs.S3FileSystem(client_kwargs={'endpoint_url': 'http://' + s3_end_point}, key=s3_access_key,
-                                    secret=s3_secret_key,
-                                    token=s3_token)
+        self.fs = fs
 
     def get_fs(self) -> S3FileSystem:
         return self.fs
