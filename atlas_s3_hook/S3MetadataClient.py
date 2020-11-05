@@ -25,11 +25,10 @@ class S3MetadataClient:
             s3_end_point = os.getenv('AWS_S3_ENDPOINT')
         if s3_access_key is None:
             s3_access_key = os.getenv('AWS_ACCESS_KEY_ID')
-        if s3_access_key is None:
+        if s3_secret_key is None:
             s3_secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
         if s3_token is None:
             s3_token = os.getenv('AWS_SESSION_TOKEN')
-
         if s3_end_point and s3_access_key and s3_secret_key and s3_token:
             self.s3_end_point = s3_end_point
             self.fs = s3fs.S3FileSystem(client_kwargs={'endpoint_url': 'http://' + s3_end_point}, key=s3_access_key,
