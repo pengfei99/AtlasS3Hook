@@ -20,7 +20,7 @@ import os
 
 class S3MetadataClient:
     def __init__(self, s3_end_point: str = None, s3_access_key: str = None, s3_secret_key: str = None,
-                 s3_token: str = None):
+                 s3_token: str = None, token_account:bool = True):
         if s3_end_point is None:
             s3_end_point = os.getenv('AWS_S3_ENDPOINT')
         if s3_access_key is None:
@@ -29,11 +29,15 @@ class S3MetadataClient:
             s3_secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
         if s3_token is None:
             s3_token = os.getenv('AWS_SESSION_TOKEN')
-        if s3_end_point and s3_access_key and s3_secret_key and s3_token:
+        if s3_end_point and s3_access_key and s3_secret_key and s3_token and token_account:
             self.s3_end_point = s3_end_point
-            self.fs = s3fs.S3FileSystem(client_kwargs={'endpoint_url': 'http://' + s3_end_point}, key=s3_access_key,
+            self.fs = s3fs.S3FileSystem(client_kwargs={'endpoint_url': 'https://' + s3_end_point}, key=s3_access_key,
                                         secret=s3_secret_key,
                                         token=s3_token)
+        elif not token_account and s3_end_point and s3_access_key and s3_secret_key:
+            self.s3_end_point = s3_end_point
+            self.fs = s3fs.S3FileSystem(client_kwargs={'endpoint_url': 'https://' + s3_end_point}, key=s3_access_key,
+                                        secret=s3_secret_key)
         else:
             raise S3ClientMissingArg
 
