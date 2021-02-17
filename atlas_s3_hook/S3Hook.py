@@ -33,7 +33,6 @@ class S3Hook:
         domain = self.s3_end_point
         date = bucket_metadata['CreationDate']
         create_time_stamp = round(datetime.timestamp(date) * 1000)
-        print("timestamp =", create_time_stamp)
         self.s3_bucket_manager.create_entity(entity_name, domain,
                                              qualified_bucket_name,
                                              bucket_description, create_time=create_time_stamp)
@@ -51,7 +50,7 @@ class S3Hook:
     def create_atlas_object(self, object_metadata: dict, owner: str, object_description: str) -> None:
         names = object_metadata['name'].split('/')
         entity_name = names[-1]
-        qualified_entity_name = "s3://" + object_metadata['name']
+        qualified_entity_name = "s3://" + self.s3_end_point + "/" + object_metadata['name']
         qualified_ps_dir_name = "s3://" + "/".join(names[:-1])
         ps_dir_prefix = "/".join(names[1:-1]) + "/"
         extension = str(os.path.splitext(entity_name)[1])[1:]
