@@ -14,14 +14,32 @@ import s3fs
 from s3fs import S3FileSystem
 from atlas_s3_hook.S3PathClass import S3PathClass
 from atlas_s3_hook.S3PathType import S3PathType
+from atlas_s3_hook.Exceptions import S3ClientMissingArg
+import os
 
 
 class S3MetadataClient:
-    def __init__(self, s3_end_point: str, s3_access_key: str, s3_secret_key: str, s3_token: str):
-        self.s3_end_point = s3_end_point
-        self.fs = s3fs.S3FileSystem(client_kwargs={'endpoint_url': 'http://' + s3_end_point}, key=s3_access_key,
-                                    secret=s3_secret_key,
-                                    token=s3_token)
+    def __init__(self, s3_end_point: str = None, s3_access_key: str = None, s3_secret_key: str = None,
+                 s3_token: str = None, token_account:bool = True):
+        if s3_end_point is None:
+            s3_end_point = os.getenv('AWS_S3_ENDPOINT')
+        if s3_access_key is None:
+            s3_access_key = os.getenv('AWS_ACCESS_KEY_ID')
+        if s3_secret_key is None:
+            s3_secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+        if s3_token is None:
+            s3_token = os.getenv('AWS_SESSION_TOKEN')
+        if s3_end_point and s3_access_key and s3_secret_key and s3_token and token_account:
+            self.s3_end_point = s3_end_point
+            self.fs = s3fs.S3FileSystem(client_kwargs={'endpoint_url': 'https://' + s3_end_point}, key=s3_access_key,
+                                        secret=s3_secret_key,
+                                        token=s3_token)
+        elif not token_account and s3_end_point and s3_access_key and s3_secret_key:
+            self.s3_end_point = s3_end_point
+            self.fs = s3fs.S3FileSystem(client_kwargs={'endpoint_url': 'https://' + s3_end_point}, key=s3_access_key,
+                                        secret=s3_secret_key)
+        else:
+            raise S3ClientMissingArg
 
     def get_fs(self) -> S3FileSystem:
         return self.fs
