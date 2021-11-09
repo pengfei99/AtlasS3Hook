@@ -17,7 +17,10 @@ jobs:
         # we can set up multiple os and python versions
         # we can put [ubuntu-latest,macos-latest,windows-latest] as os
         os: [ubuntu-latest]
-        python-version: [3.7, 3.8, 3.9]
+        # with multiple python version, the build will generate multiple tar bar and try to publish to the
+        # pypi server at same time with the same package version tag. This will case pypi server internal errors
+        # [3.7, 3.8, 3.9]
+        python-version: [ 3.8 ]
         # we can also exclude some os and python version explicitly, below will not run test on mac, and windows
         # with python 3.9
         exclude:
@@ -64,6 +67,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
         with:
           user: __token__
+          # note the pypi api token is stored at the project's github secrets section
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           repository_url: https://test.pypi.org/legacy/
 
