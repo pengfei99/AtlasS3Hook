@@ -11,9 +11,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     # set up config values
     strategy:
+      # you need to add this, because if one job fail will cancel all other jobs running in parallel
+      fail-fast: false
       matrix:
         # we can set up multiple os and python versions
-        os: [ubuntu-latest,macos-latest,windows-latest]
+        # we can put [ubuntu-latest,macos-latest,windows-latest] as os
+        os: [ubuntu-latest]
         python-version: [3.7, 3.8, 3.9]
         # we can also exclude some os and python version explicitly, below will not run test on mac, and windows
         # with python 3.9
