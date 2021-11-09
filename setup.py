@@ -22,13 +22,13 @@ setuptools.setup(
     name="atlass3hook",  # Replace with your own username
     version=version,
     author="Pengfei Liu",
-    author_email="pengfei.liu@insee.fr",
+    author_email="liu.pengfei@hotmail.fr",
     description="This atlas s3 hook uses s3fs package to gather the metadata of bucket, pseudo_dir and object, then"
                 " it inserts these metadata into Atlas instances.",
     license='Apache License 2.0',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://git.lab.sspcloud.fr/pengfei/atlass3hook",
+    url="https://github.com/pengfei99/AtlasS3Hook",
     # we need to indicate excitement which package will be published, otherwise import will raise module name not found
     packages=setuptools.find_packages(include=['atlas_s3_hook']),
     classifiers=[
