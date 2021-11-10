@@ -1,6 +1,6 @@
 name: Main workflow for publishing to pypi
 on:  # define the job trigger event, in our case, push our merge to branch master will trigger below action
-    push:
+    pull_request:
       branches: [master]
 
 jobs:
@@ -62,17 +62,6 @@ jobs:
       - name: Test with pytest
         run: |
           pytest --import-mode=importlib
-        # build the project to a tarball
-      - name: Build binary wheel and a source tarball
-        run: python setup.py sdist
-       # publish it to the test pypi
-      - name: Publish distribution to Test PyPI
-        uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
-        with:
-          user: __token__
-          # note the pypi api token is stored at the project's github secrets section
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
 
 
 
