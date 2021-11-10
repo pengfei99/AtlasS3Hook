@@ -48,6 +48,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      # this enables runner to be aware of tests_require, without this, you can import the package name you are testing
+      # in your test.
       - name: Install package
         run: |
           pip install -e .[test]
