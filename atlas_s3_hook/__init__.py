@@ -1,5 +1,5 @@
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 # Set default logging handler to avoid "No handler found" warnings.
 import logging
-logging.getLogger('atlass3hook').addHandler(logging.NullHandler())
+logging.getLogger('atlas_s3_hook').addHandler(logging.NullHandler())

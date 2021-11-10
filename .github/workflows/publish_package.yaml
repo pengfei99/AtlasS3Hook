@@ -48,6 +48,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      # this enables runner to be aware of tests_require, without this, you can import the package name you are testing
+      # in your test.
+      - name: Install package
+        run: |
+          pip install -e .[test]
         # check your code style conformity with flake8
       - name: Lint with flake8
         run: |
@@ -58,7 +63,7 @@ jobs:
         # run your project test
       - name: Test with pytest
         run: |
-          pytest
+          pytest --import-mode=importlib
         # build the project to a tarball
       - name: Build binary wheel and a source tarball
         run: python setup.py sdist

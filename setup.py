@@ -3,7 +3,6 @@
 
 import os
 import sys
-
 import setuptools
 
 from atlas_s3_hook import __version__ as version
