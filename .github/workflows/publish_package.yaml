@@ -58,7 +58,7 @@ jobs:
         # run your project test
       - name: Test with pytest
         run: |
-          pytest
+          pytest --import-mode=importlib
         # build the project to a tarball
       - name: Build binary wheel and a source tarball
         run: python setup.py sdist
