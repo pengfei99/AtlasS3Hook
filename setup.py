@@ -30,7 +30,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/pengfei99/AtlasS3Hook",
     # we need to indicate excitement which package will be published, otherwise import will raise module name not found
-    packages=setuptools.find_packages(include=['atlas_s3_hook']),
+    packages=setuptools.find_packages(include=['atlas_s3_hook', 'tests']),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
