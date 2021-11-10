@@ -1,4 +1,4 @@
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 
 # Set default logging handler to avoid "No handler found" warnings.
 import logging
