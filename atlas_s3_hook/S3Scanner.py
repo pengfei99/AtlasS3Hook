@@ -90,7 +90,3 @@ class S3Scanner:
             obj_meta = self.s3_client.get_path_meta_data(obj_name)
             logging.info(f"upload meta data: {obj_meta}")
             self.s3_atlas_hook.create_atlas_object(obj_meta, self.default_owner, description)
-
-
-def is_ignored(param):
-    return None
