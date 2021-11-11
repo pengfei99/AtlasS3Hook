@@ -61,12 +61,20 @@ class S3Scanner:
     def populate_queue(self, queue, target_path: str):
         contents = self.fs.ls(target_path)
         logging.info(f"populate_queue: sub content of target path value: {contents}")
-        if contents is None:
+        # there is a bug in s3fs, if the directory is empty, the fs.ls does not return an empty list.
+        # it returns a list where the first element is the empty directory name
+        # walk around for the s3fs bug, remove the parent directory name manually
+        if len(contents) == 1 and (target_path in contents):
             return queue
-        for item in contents:
-            logging.info(f"sub path element:{item}")
-            queue.append(item)
-        return queue
+        # if contents is empty, return the origin queue
+        # empty list in python is false, bool()
+        elif (contents is None) or (bool(contents) == False):
+            return queue
+        else:
+            for item in contents:
+                logging.info(f"sub path element:{item}")
+                queue.append(item)
+            return queue
 
     # check if the given file_name is in the ignore list or not
     @staticmethod
