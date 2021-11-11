@@ -71,8 +71,7 @@ jobs:
         with:
           user: __token__
           # note the pypi api token is stored at the project's github secrets section
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          password: ${{ secrets.PROD_PYPI_API_TOKEN }}
 
 
 
