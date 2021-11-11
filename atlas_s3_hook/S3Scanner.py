@@ -74,9 +74,9 @@ class S3Scanner:
         # Make a regex that matches if any of our regexes match.
         # by default, we ignore all file started by "." (e.g. .keep), we can add other regex in the list
         # ^\. means filename starts with . and followed by any number of any character
-        # because . is special character, so we need to use \ to protect it. without \, . means any character.
+        # because . is special character, so we need to use \\ to protect it. without \\, . means any character.
         if ignored_file_pattern is None:
-            ignored_file_pattern = ["^\..*","^_.*"]
+            ignored_file_pattern = ["^\\..*", "^_.*"]
         # file_name may be a abs path, in that case we need to extract the last part of the file and compare it
         file_name = file_name.split("/").pop()
         combined = "(" + ")|(".join(ignored_file_pattern) + ")"
