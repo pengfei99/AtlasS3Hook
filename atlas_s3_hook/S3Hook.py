@@ -28,6 +28,15 @@ class S3Hook:
         self.s3_object_manager = S3ObjectManager(atlas_client)
 
     def create_atlas_bucket(self, bucket_metadata: dict, bucket_description: str) -> None:
+        '''
+        Insert a provided metadata of s3 bucket into a atlas server.
+
+            Parameters:
+                    bucket_metadata (dict): A dictionary of s3 bucket metadata
+                    bucket_description (str): A description of this bucket
+            Returns:
+                    None: 
+        '''
         entity_name = bucket_metadata['name']
         qualified_bucket_name = "s3://" + self.s3_end_point + "/" + entity_name
         domain = self.s3_end_point
@@ -38,6 +47,15 @@ class S3Hook:
                                              bucket_description, create_time=create_time_stamp)
 
     def create_atlas_ps_dir(self, ps_dir_metadata: dict, ps_dir_description: str) -> None:
+        '''
+        Insert a provided metadata of s3 pseudo_dir into a atlas server.
+
+            Parameters:
+                    ps_dir_metadata (dict): A dictionary of s3 pseudo_dir metadata
+                    ps_dir_description (str): A description of this pseudo_dir
+            Returns:
+                    None: 
+        '''
         names = ps_dir_metadata['name'].split("/")
         bucket_name = names[0]
         entity_name = "/".join(names[1:])
@@ -48,6 +66,15 @@ class S3Hook:
                                              qualified_bucket_name, prefix, description=ps_dir_description)
 
     def create_atlas_object(self, object_metadata: dict, owner: str, object_description: str) -> None:
+        '''
+        Insert a provided metadata of s3 object into a atlas server.
+
+            Parameters:
+                    object_metadata (dict): A dictionary of s3 object metadata
+                    object_description (str): A description of this object
+            Returns:
+                    None: 
+        '''
         names = object_metadata['name'].split('/')
         entity_name = names[-1]
         qualified_entity_name = "s3://" + self.s3_end_point + "/" + object_metadata['name']
