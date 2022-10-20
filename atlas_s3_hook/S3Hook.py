@@ -12,10 +12,10 @@
 
 import os
 from datetime import datetime
-from atlas_client.client import Atlas
-from atlas_client.entity_management.s3.S3BucketManager import S3BucketManager
-from atlas_client.entity_management.s3.S3ObjectManager import S3ObjectManager
-from atlas_client.entity_management.s3.S3PsDirManager import S3PsDirManager
+from atlaspyapi.client import Atlas
+from atlaspyapi.entity_management.s3.S3BucketManager import S3BucketManager
+from atlaspyapi.entity_management.s3.S3ObjectManager import S3ObjectManager
+from atlaspyapi.entity_management.s3.S3PsDirManager import S3PsDirManager
 from atlas_s3_hook.S3MetadataClient import S3MetadataClient
 
 
@@ -37,11 +37,15 @@ class S3Hook:
             Returns:
                     None: 
         '''
+        print(bucket_metadata)
         entity_name = bucket_metadata['name']
         qualified_bucket_name = "s3://" + self.s3_end_point + "/" + entity_name
         domain = self.s3_end_point
-        date = bucket_metadata['CreationDate']
-        create_time_stamp = round(datetime.timestamp(date) * 1000)
+        date = bucket_metadata.get("CreationDate")
+        if date is not None:
+            create_time_stamp = round(datetime.timestamp(date) * 1000)
+        else:
+            create_time_stamp = datetime.now()
         self.s3_bucket_manager.create_entity(entity_name, domain,
                                              qualified_bucket_name,
                                              bucket_description, create_time=create_time_stamp)

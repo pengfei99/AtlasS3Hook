@@ -13,7 +13,7 @@
 import logging
 import re
 
-from atlas_client.client import Atlas
+from atlaspyapi.client import Atlas
 
 from atlas_s3_hook.S3Hook import S3Hook
 from atlas_s3_hook.S3MetadataClient import S3MetadataClient
