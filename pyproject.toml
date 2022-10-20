@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "atlass3hook"
+version = "0.1.0"
+description = ""
+authors = ["Pengfei Liu <liu.pengfei@hotmail.fr>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+s3fs = "^2022.10.0"
+atlaspyapi = "^0.2.7"
+pytest = "^7.1.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
